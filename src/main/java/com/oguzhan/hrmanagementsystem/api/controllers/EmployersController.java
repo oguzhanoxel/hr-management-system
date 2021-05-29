@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oguzhan.hrmanagementsystem.business.abstracts.EmployerService;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.DataResult;
+import com.oguzhan.hrmanagementsystem.core.utilities.results.Result;
 import com.oguzhan.hrmanagementsystem.entities.concretes.Employer;
 
 @RestController
@@ -39,19 +40,19 @@ public class EmployersController {
 
 
     @PostMapping("add")
-    public void add(@RequestBody Employer employer){
-        employerService.add(employer);
+    public Result add(@RequestBody Employer employer){
+        return employerService.add(employer);
     }
 
 
     @PostMapping("delete")
-    public void delete(@RequestBody Employer employer){
-        employerService.delete(employer);
+    public Result delete(@RequestBody Employer employer){
+    	return employerService.delete(employer);
     }
 
 
     @PostMapping("update")
-    public void update(@RequestBody Employer employer){
-        employerService.update(employer);
+    public Result update(@RequestBody Employer employer){
+    	return employerService.update(employer);
     }
 }

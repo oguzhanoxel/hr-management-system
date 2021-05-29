@@ -40,22 +40,16 @@ public class JobSeekersController {
 	
 	@PostMapping("register")
 	public Result add(@RequestBody JobSeeker jobSeeker){
-		var result = this.jobSeekerService.add(jobSeeker);
-		if(!result.isSuccess()) {
-			return new ErrorResult(result.getMessage());
-		}
-		return new SuccessResult("Registration Successful. Check your email...");
+		return this.jobSeekerService.add(jobSeeker);
 	}
 	
 	@PostMapping("update")
 	public Result update(@RequestBody JobSeeker jobSeeker) {
-		this.jobSeekerService.update(jobSeeker);
-		return new SuccessResult("Updated.");
+		return this.jobSeekerService.update(jobSeeker);
 	}
 	
 	@PostMapping("delete")
 	public Result delete(@RequestBody JobSeeker jobSeeker) {
-		this.jobSeekerService.delete(jobSeeker);
-		return new SuccessResult("Deleted.");
+		return this.jobSeekerService.delete(jobSeeker);
 	}
 }
