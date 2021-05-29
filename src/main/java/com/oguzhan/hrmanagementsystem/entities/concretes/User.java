@@ -32,8 +32,13 @@ public class User {
     @Column(name="password")
 	private String password;
     
+    private String confirmPassword;
+    
     @Column(name="is_verified", columnDefinition = "boolean default false")
 	private boolean isVerified = false;
+    
+    @Column(name="is_superuser", columnDefinition = "boolean default false")
+    private boolean isSuperuser = false;
     
     public User(String email, String password) {
         this.email = email;

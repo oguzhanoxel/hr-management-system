@@ -46,9 +46,10 @@ public class JobSeekerManager implements JobSeekerService {
 	public Result add(JobSeeker jobSeeker) {
 		var result = BusinessRules.run(
 				this.checkFields(jobSeeker),
+				this.checkPassword(jobSeeker),
 				this.checkUserExists(jobSeeker),
 				this.mernisVerification.verify(jobSeeker),
-				this.emailVerification.send(jobSeeker)
+				this.emailVerification.verify(jobSeeker)
 				);
 		if(!result.isSuccess()) {
 			return new ErrorResult(result.getMessage());
@@ -70,12 +71,14 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 	
 	private Result checkUserExists(JobSeeker jobSeeker) {
-		
-		for(JobSeeker eachJobSeeker:this.jobSeekerDao.findAll()) {
-			if(jobSeeker == eachJobSeeker) {
-				return new ErrorResult("user exists.");
-			}
+		var jobSeekers  = this.jobSeekerDao.findByEmailOrTcNo(jobSeeker.getEmail(), jobSeeker.getTcNo());
+		for(JobSeeker eachJobSeeker : jobSeekers)
+		{
+			if(eachJobSeeker.getEmail().equals(jobSeeker.getEmail()) || eachJobSeeker.getTcNo().equals(jobSeeker.getTcNo())){
+				return new ErrorResult("User Exists.");
+			}			
 		}
+		
 		return new SuccessResult();
 	}
 	
@@ -85,21 +88,20 @@ public class JobSeekerManager implements JobSeekerService {
 			jobSeeker.getFirstName().isBlank() ||
 			jobSeeker.getLastName().isBlank() ||
 			jobSeeker.getPassword().isBlank() ||
+			jobSeeker.getConfirmPassword().isBlank() ||
+			jobSeeker.getDateOfBirth() == null || //TODO isBlank fonksiyonu çıkmadı ?
 			jobSeeker.getTcNo().isBlank()) {
 			
 			return new ErrorResult("Empty Field.");
 		}
-			
-		
 		return new SuccessResult();
 	}
-
-	@Override
-	public Result verify(JobSeeker jobSeeker) {
-		if(this.emailVerification.verify(jobSeeker).isSuccess()) {
-			return new SuccessResult(Messages.verified);
+	
+	private Result checkPassword(JobSeeker jobSeeker) {
+		if(jobSeeker.getPassword().equals(jobSeeker.getConfirmPassword())) {
+			return new SuccessResult();
 		}
-		return new ErrorResult(Messages.verifyFailed);
+		return new ErrorResult("Confirm password did not matched.");
 	}
 
 }

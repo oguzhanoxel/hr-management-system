@@ -5,5 +5,4 @@ import com.oguzhan.hrmanagementsystem.entities.concretes.User;
 
 public interface VerificationService {
 	Result verify(User user);
-	Result send(User user);
 }

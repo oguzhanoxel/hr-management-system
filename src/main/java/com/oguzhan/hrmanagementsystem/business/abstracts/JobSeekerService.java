@@ -11,7 +11,6 @@ public interface JobSeekerService {
 	  DataResult<List<JobSeeker>> getAll();
 	    DataResult<JobSeeker> get(int id);
 	    Result add(JobSeeker jobSeeker);
-	    Result verify(JobSeeker jobSeeker);
 	    Result delete(JobSeeker jobSeeker);
 	    Result update(JobSeeker jobSeeker);
 	

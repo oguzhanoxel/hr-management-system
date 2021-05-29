@@ -10,15 +10,9 @@ public class MernisVerificationManager implements VerificationService {
 	@Override
 	public Result verify(User user) {
 		if(true) {// true yerine mernis fonksiyonu gelicek fonksiyon doğrulamaz ise error result dönecek
-			return new SuccessResult("verified.");
+			return new SuccessResult("verified by Mernis.");
 		}
 		return new ErrorResult("verification failed."); 
-	}
-
-	@Override
-	public Result send(User user) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

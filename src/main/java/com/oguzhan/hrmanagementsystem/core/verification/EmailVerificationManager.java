@@ -15,9 +15,4 @@ public class EmailVerificationManager implements VerificationService {
 		return new ErrorResult("verification failed."); 
 	}
 
-	@Override
-	public Result send(User user) {
-		return new SuccessResult("Check "+ user.getEmail() +".");
-	}
-
 }
