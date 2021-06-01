@@ -23,8 +23,8 @@ import com.oguzhan.hrmanagementsystem.entities.concretes.JobSeeker;
 public class JobSeekerManager implements JobSeekerService {
 	
 	private JobSeekerDao jobSeekerDao;
-	private VerificationService mernisVerification = new MernisVerificationManager();
-	private VerificationService emailVerification = new EmailVerificationManager();
+	private MernisVerificationManager mernisVerificationManager = new MernisVerificationManager();
+	private EmailVerificationManager emailVerificationManager = new EmailVerificationManager();
 	
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao) {
@@ -48,12 +48,13 @@ public class JobSeekerManager implements JobSeekerService {
 				this.checkFields(jobSeeker),
 				this.checkPassword(jobSeeker),
 				this.checkUserExists(jobSeeker),
-				this.mernisVerification.verify(jobSeeker),
-				this.emailVerification.verify(jobSeeker)
+				this.mernisVerificationManager.verify(jobSeeker),
+				this.emailVerificationManager.verify(jobSeeker)
 				);
 		if(!result.isSuccess()) {
 			return new ErrorResult(result.getMessage());
 		}
+		
 		this.jobSeekerDao.save(jobSeeker);
 		return new SuccessResult(Messages.added);
 	}

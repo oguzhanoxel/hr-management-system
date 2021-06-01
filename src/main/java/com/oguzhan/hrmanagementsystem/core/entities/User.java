@@ -1,4 +1,4 @@
-package com.oguzhan.hrmanagementsystem.entities.concretes;
+package com.oguzhan.hrmanagementsystem.core.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,22 +27,26 @@ public class User {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id")
+    @Column(name="id")
 	private int user_id;
     
     @Column(name="email")
+    @Email
+    @NotBlank
+    @NotNull
 	private String email;
     
     @Column(name="password")
+    @NotBlank
+    @NotNull
 	private String password;
     
     private String confirmPassword;
     
-    @Column(name="is_verified", columnDefinition = "boolean default false")
+    @Column(name="is_verified")
+    @NotBlank
+    @NotNull
 	private boolean isVerified = false;
-    
-    @Column(name="is_superuser", columnDefinition = "boolean default false")
-    private boolean isSuperuser = false;
     
     public User(String email, String password) {
         this.email = email;

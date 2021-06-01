@@ -1,10 +1,13 @@
 package com.oguzhan.hrmanagementsystem.core.verification;
 
+import org.springframework.stereotype.Service;
+
+import com.oguzhan.hrmanagementsystem.core.entities.User;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.ErrorResult;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.Result;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.SuccessResult;
-import com.oguzhan.hrmanagementsystem.entities.concretes.User;
 
+@Service
 public class EmailVerificationManager implements VerificationService {
 
 	@Override

@@ -1,8 +1,9 @@
-package com.oguzhan.hrmanagementsystem.dataAccess.abstracts;
+package com.oguzhan.hrmanagementsystem.core.dataAccess;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.oguzhan.hrmanagementsystem.entities.concretes.User;
+import com.oguzhan.hrmanagementsystem.core.entities.User;
+
 
 public interface UserDao extends JpaRepository<User, Integer> {
 
