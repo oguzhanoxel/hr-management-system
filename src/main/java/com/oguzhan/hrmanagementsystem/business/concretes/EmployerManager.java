@@ -13,21 +13,20 @@ import com.oguzhan.hrmanagementsystem.core.utilities.results.ErrorResult;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.Result;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.SuccessDataResult;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.SuccessResult;
-import com.oguzhan.hrmanagementsystem.core.verification.EmailVerificationManager;
 import com.oguzhan.hrmanagementsystem.core.verification.VerificationService;
 import com.oguzhan.hrmanagementsystem.dataAccess.abstracts.EmployerDao;
 import com.oguzhan.hrmanagementsystem.entities.concretes.Employer;
-import com.oguzhan.hrmanagementsystem.entities.concretes.JobSeeker;
 
 @Service
 public class EmployerManager implements EmployerService {
 	
 	private EmployerDao employerDao;
-	private VerificationService emailVerification = new EmailVerificationManager();
+	private VerificationService verificationService;
 	
 	@Autowired
-    public EmployerManager(EmployerDao employerDao) {
+    public EmployerManager(EmployerDao employerDao, VerificationService verificationService) {
         this.employerDao = employerDao;
+        this.verificationService = verificationService;
     }
 
 	@Override
@@ -46,7 +45,7 @@ public class EmployerManager implements EmployerService {
 				this.checkFields(employer),
 				this.checkPassword(employer),
 				this.checkUserExists(employer),
-				this.emailVerification.verify(employer));
+				this.verificationService.verify(employer));
 		
 		if(!result.isSuccess()) {
 			return new ErrorResult(result.getMessage());

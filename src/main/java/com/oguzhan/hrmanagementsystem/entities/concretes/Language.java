@@ -1,17 +1,16 @@
 package com.oguzhan.hrmanagementsystem.entities.concretes;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +20,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="job_positions")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","job_notices"})
-public class JobPosition {
+@Table(name="languages")
+public class Language {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +31,14 @@ public class JobPosition {
 	@Column(name="name")
 	private String name;
 	
-	@OneToMany(mappedBy="jobPosition")
-	@JsonIgnore
-	private List<JobNotice> jobNotices;
+	@Column(name="level")
+	@Min(0)
+	@Max(5)
+	private short level;
+	
+	@ManyToOne
+	@JoinColumn(name="resume_id")
+	private Resume resume;
+
 
 }

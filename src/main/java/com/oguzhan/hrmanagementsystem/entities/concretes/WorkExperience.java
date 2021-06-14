@@ -1,16 +1,15 @@
 package com.oguzhan.hrmanagementsystem.entities.concretes;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,29 +19,37 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="locations")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","job_notices"})
-public class Location {
+@Table(name="work_experiences")
+public class WorkExperience {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
+	@Column(name="job_title")
+	private String jobTitle;
+	
+	@Column(name="description")
+	private String description;
+	
+	@Column(name="company")
+	private String company;
+	
 	@Column(name="country")
-	@NotNull
-	@NotBlank
 	private String country;
-
+	
 	@Column(name="city")
-	@NotNull
-	@NotBlank
 	private String city;
 	
-	@Column(name="address")
-	private String address;
+	@Column(name="start_date")
+	private LocalDate startDate;
 	
-	@OneToOne(mappedBy="location")
-	private JobNotice jobNotice;
-
+	@Column(name="end_date")
+	private LocalDate endDate;
+	
+	@ManyToOne
+	@JoinColumn(name="resume_id")
+	private Resume resume;
+	
 }

@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oguzhan.hrmanagementsystem.business.abstracts.JobSeekerService;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.DataResult;
-import com.oguzhan.hrmanagementsystem.core.utilities.results.ErrorResult;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.Result;
-import com.oguzhan.hrmanagementsystem.core.utilities.results.SuccessResult;
 import com.oguzhan.hrmanagementsystem.entities.concretes.JobSeeker;
 
 @RestController

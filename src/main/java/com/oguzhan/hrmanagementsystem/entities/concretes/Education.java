@@ -1,7 +1,6 @@
 package com.oguzhan.hrmanagementsystem.entities.concretes;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,49 +19,37 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="job_notices")
-public class JobNotice {
+@Table(name="educations")
+public class Education {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="title")
-	private String title;
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="department")
+	private String department;
 	
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="min_salary")
-	private int minSalary;
+	@Column(name="start_date")
+	private LocalDate startDate;
 	
-	@Column(name="max_salary")
-	private int maxSalary;
-	
-	@Column(name="number_of_open_positions")
-	private int numberOfOpenPositions;
+	@Column(name="date_of_graduation")
+	private LocalDate dateOfGraduation;
 	
 	@Column(name="country")
 	private String country;
-
+	
 	@Column(name="city")
 	private String city;
 	
-	@Column(name="address")
-	private String address;
-	
-	@Column(name="deadline")
-	private Date deadline;
-	
-	@Column(name="is_active")
-	private boolean active=true;
-	
-	@Column(name="created_at")
-	private LocalDate createAt = LocalDate.now();
-	
-	@ManyToOne()
-	@JoinColumn(name="job_position_id")
-	private JobPosition jobPosition;
+	@ManyToOne
+	@JoinColumn(name="resume_id")
+	private Resume resume;
 
 }

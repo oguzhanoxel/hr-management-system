@@ -13,8 +13,6 @@ import com.oguzhan.hrmanagementsystem.core.utilities.results.ErrorResult;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.Result;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.SuccessDataResult;
 import com.oguzhan.hrmanagementsystem.core.utilities.results.SuccessResult;
-import com.oguzhan.hrmanagementsystem.core.verification.EmailVerificationManager;
-import com.oguzhan.hrmanagementsystem.core.verification.MernisVerificationManager;
 import com.oguzhan.hrmanagementsystem.core.verification.VerificationService;
 import com.oguzhan.hrmanagementsystem.dataAccess.abstracts.JobSeekerDao;
 import com.oguzhan.hrmanagementsystem.entities.concretes.JobSeeker;
@@ -23,13 +21,14 @@ import com.oguzhan.hrmanagementsystem.entities.concretes.JobSeeker;
 public class JobSeekerManager implements JobSeekerService {
 	
 	private JobSeekerDao jobSeekerDao;
-	private MernisVerificationManager mernisVerificationManager = new MernisVerificationManager();
-	private EmailVerificationManager emailVerificationManager = new EmailVerificationManager();
-	
+	private VerificationService verificationService;
+		
+
 	@Autowired
-	public JobSeekerManager(JobSeekerDao jobSeekerDao) {
+	public JobSeekerManager(JobSeekerDao jobSeekerDao, VerificationService verificationService) {
 		super();
 		this.jobSeekerDao = jobSeekerDao;
+		this.verificationService = verificationService;
 	}
 
 	@Override
@@ -48,8 +47,7 @@ public class JobSeekerManager implements JobSeekerService {
 				this.checkFields(jobSeeker),
 				this.checkPassword(jobSeeker),
 				this.checkUserExists(jobSeeker),
-				this.mernisVerificationManager.verify(jobSeeker),
-				this.emailVerificationManager.verify(jobSeeker)
+				this.verificationService.verify(jobSeeker)
 				);
 		if(!result.isSuccess()) {
 			return new ErrorResult(result.getMessage());
